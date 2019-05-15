@@ -1,0 +1,26 @@
+{
+  "name": "@hellosirandy/rest-api-wrapper",
+  "version": "1.1.0",
+  "dependencies": {
+    "query-string": "^6.2.0"
+  },
+  "scripts": {
+    "build": "npx babel src --out-dir dist"
+  },
+  "description": "A simple rest api wrapper based on fetch",
+  "license": "MIT",
+  "repository": "hellosirandy/rest-api-wrapper",
+  "main": "dist/index.js",
+  "keywords": [
+    "fetch",
+    "rest",
+    "package",
+    "hellosirandy"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.4"
+  }
+}
