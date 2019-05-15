@@ -5,7 +5,8 @@ export default class API {
     this.url = url;
   }
 
-  get = async (endpoint, token, params) => {
+  get = async (options) => {
+    const { endpoint, token, params } = options;
     const url = params ? `${this.url}${endpoint}?${queryString.stringify(params)}` : `${this.url}${endpoint}`;
     const res = await fetch(url, {
       method: 'GET',
@@ -21,7 +22,8 @@ export default class API {
     return parsedRes;
   }
 
-  post = async (endpoint, token, body) => {
+  post = async (options) => {
+    const { endpoint, token, body } = options;
     const res = await fetch(`${this.url}${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(body),
