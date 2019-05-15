@@ -51,4 +51,20 @@ export default class API {
     });
     return res.json();
   }
+
+  delete = async (options) => {
+    const { endpoint, token, params } = options;
+    const url = params ? `${this.url}${endpoint}?${queryString.stringify(params)}` : `${this.url}${endpoint}`;
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        Authorization: token,
+      },
+    });
+    const parsedRes = await res.json();
+    if (!res.ok) {
+      throw parsedRes;
+    }
+    return parsedRes;
+  }
 }
