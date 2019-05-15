@@ -5,6 +5,7 @@ export default class API {
     this.url = url;
   }
 
+
   get = async (options) => {
     const { endpoint, token, params } = options;
     const url = params ? `${this.url}${endpoint}?${queryString.stringify(params)}` : `${this.url}${endpoint}`;
