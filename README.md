@@ -10,13 +10,15 @@ $ npm install @hellosirandy/rest-api-wrapper
 
 ## Usage
 
+### Initialize
 ```js
-import API from '@hellosirandy/rest-api-wrapper'
+import API from '@hellosirandy/rest-api-wrapper';
 
-const baseURL = 'https://example.com'
-
-const api = API(baseURL)
-
+const baseURL = 'https://example.com';
+const api = API(baseURL);
+```
+### Get
+```js
 const options = {
   endpoint: '/test',
   token: '123456-asdf', //option
@@ -25,4 +27,37 @@ const options = {
   } //option
 }
 api.get(options)
+```
+
+### Post
+```js
+const options = {
+  endpoint: '/test',
+  token: '123456-asdf', //option
+  body: {
+    foo: 'bar'
+  } //option
+}
+api.post(options)
+```
+
+### Put
+```js
+const options = {
+  endpoint: '/test',
+  token: '123456-asdf', //option
+  body: {
+    foo: 'bar'
+  } //option
+}
+api.put(options)
+```
+
+### Delete
+```js
+const options = {
+  endpoint: '/test',
+  token: '123456-asdf', //option
+}
+api.delete(options)
 ```
