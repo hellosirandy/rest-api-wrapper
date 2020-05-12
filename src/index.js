@@ -1,13 +1,21 @@
 import queryString from 'query-string';
 
-export default class API {
-  constructor(url) {
-    this.url = url;
+class API {
+  constructor(host) {
+    /** @type {string} The host of REST API. */
+    this.host = host;
   }
 
-  get = async (options) => {
-    const { endpoint, token, params } = options;
-    const url = params ? `${this.url}${endpoint}?${queryString.stringify(params)}` : `${this.url}${endpoint}`;
+
+  /**
+   * Performs the GET operation
+   * @param {{endpoint: string, token: string, params: object}} options
+   *    endpoint: API endpoint
+   *    token: Access token
+   *    params: Request paramaters
+   */
+  async get({ endpoint, token, params }) {
+    const url = params ? `${this.host}${endpoint}?${queryString.stringify(params)}` : `${this.host}${endpoint}`;
     const res = await fetch(url, {
       method: 'GET',
       headers: {
@@ -22,9 +30,15 @@ export default class API {
     return parsedRes;
   }
 
-  post = async (options) => {
-    const { endpoint, token, body } = options;
-    const res = await fetch(`${this.url}${endpoint}`, {
+  /**
+   * Performs the POST operation
+   * @param {{endpoint: string, token: string, body: object}} options
+   *    endpoint: API endpoint
+   *    token: Access token
+   *    body: Request body
+   */
+  async post({ endpoint, token, body }) {
+    const res = await fetch(`${this.host}${endpoint}`, {
       method: 'POST',
       body: JSON.stringify(body),
       headers: {
@@ -39,22 +53,15 @@ export default class API {
     return parsedRes;
   }
 
-  put = async (options) => {
-    const { endpoint, token, body } = options;
-    const res = await fetch(`${this.url}${endpoint}`, {
-      method: 'PUT',
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: token,
-      },
-    });
-    return res.json();
-  }
-
-  delete = async (options) => {
-    const { endpoint, token, params } = options;
-    const url = params ? `${this.url}${endpoint}?${queryString.stringify(params)}` : `${this.url}${endpoint}`;
+  /**
+   * Performs the DELETE operation
+   * @param {{endpoint: string, token: string, params: object}} options
+   *    - endpoint: API endpoint
+   *    - token: Access token
+   *    - params: Request paramaters
+   */
+  async delete({ endpoint, token, params }) {
+    const url = params ? `${this.base}${endpoint}?${queryString.stringify(params)}` : `${this.base}${endpoint}`;
     const res = await fetch(url, {
       method: 'DELETE',
       headers: {
@@ -67,4 +74,29 @@ export default class API {
     }
     return parsedRes;
   }
+
+  /**
+   * Performs the PUT operation
+   * @param {{endpoint: string, token: string, body: object}} options
+   *    endpoint: API endpoint
+   *    token: Access token
+   *    body: Request body
+   */
+  async put({ endpoint, token, body }) {
+    const res = await fetch(`${this.base}${endpoint}`, {
+      method: 'PUT',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: token,
+      },
+    });
+    const parsedRes = await res.json();
+    if (!res.ok) {
+      throw parsedRes;
+    }
+    return parsedRes;
+  }
 }
+
+export default API;

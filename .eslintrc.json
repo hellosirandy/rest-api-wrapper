@@ -1,0 +1,9 @@
+{
+  "extends": "airbnb/base",
+  "rules": {
+    "func-names": "off"
+  },
+  "globals": {
+    "fetch": true
+  }
+}
